@@ -1,0 +1,18 @@
+
+
+.error-content {
+    background-color: white;
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-bottom: 15px;
+    min-height: 40vh;
+}
+
+
+.error-content h1, h2, h3, h4, h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+

@@ -1,0 +1,143 @@
+{% extends "admin_base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/admin/edit.css') }}">
+<link rel="stylesheet" href="{{ static_url('css/simditor/app.css') }}">
+<link rel="stylesheet" href="{{ static_url('css/simditor/mobile.css') }}">
+<link rel="stylesheet" href="{{ static_url('css/simditor/simditor.css') }}">
+{% end %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 blog">
+            <form id="editform" class="form-horizontal">
+                <input type="text" class="form-control" placeholder="标题" name="title" id="title"
+                       {%if post%} value="{{post.title}}" {%end%}>
+
+                <input type="hidden" value="{{pk}}" id="pk">
+
+                <textarea id="edit" name="content">{%if post%}{{post.content}}{%end%}</textarea>
+
+                <div class="form-group category-select">
+                    <label class="col-sm-1 category-label" for="category">分类:</label>
+
+                    <div class="col-sm-2" id="category">
+                        <select class="form-control" name="category">
+                            {% for i in all_categories%}
+                            <option value="{{i.id}}" {%if category== i%}selected{%end%}>{{i.name}}</option>
+                            {%end%}}
+                        </select>
+                    </div>
+
+                    <div class="col-sm-2" id="new-category" style="display: none">
+                        <input class="form-control" id="new-category-input" name="new-category">
+                    </div>
+
+                    <div class="col-sm-2 category-label">
+                        <a id="add_category">新增分类</a>
+                    </div>
+                </div>
+
+
+                <div class="form-group category-select">
+
+                    <label class="col-sm-1 category-label" for="tag">标签:</label>
+
+                    <div class="col-sm-2" id="tag">
+                        <select multiple class="form-control" name="tag">
+                            {% for i in all_tags%}
+                            <option value="{{i.id}}" {%if i in tags%}selected{%end%}>{{i.name}}</option>
+                            {%end%}}
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="display: none" id="new-tag">
+                        <input class="form-control" name="new-tag" placeholder="多个标签请用空格分隔">
+                    </div>
+                    <div class="col-sm-2 category-label" id="add_tag-div">
+                        <a id="add_tag">新增标签</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-default btn-edit">保存</button>
+                <a class="btn btn-default btn-edit" href="{{reverse_url('admin')}}" role="button">取消</a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+{% end %}
+
+{% block js %}
+<script src="{{ static_url('js/simditor/module.js')}}"></script>
+<script src="{{ static_url('js/simditor/dompurify.js')}}"></script>
+<script src="{{ static_url('js/simditor/hotkeys.js')}}"></script>
+<script src="{{ static_url('js/simditor/simditor.js')}}"></script>
+<script src="{{ static_url('js/simditor/uploader.js')}}"></script>
+<script>
+    (function () {
+        $(function () {
+            var $preview, editor, toolbar;
+            Simditor.locale = 'zh-CN';
+            toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'hr', '|', 'indent', 'outdent', 'alignment'];
+            editor = new Simditor({
+                textarea: $('#edit'),
+                toolbar: toolbar,
+                pasteImage: true,
+                upload: location.search === '?upload' ? {
+                    url: '/upload'
+                } : false
+            });
+            $preview = $('#preview');
+            if ($preview.length > 0) {
+                return editor.on('valuechanged', function (e) {
+                    return $preview.html(editor.getValue());
+                });
+            }
+        });
+    }).call(this);
+
+    $("#editform").on("submit", function (e) {
+        e.preventDefault();
+        var pk = $('#pk').val();
+        var url = pk !== "None" ? "{{reverse_url('edit',pk)}}" : "{{reverse_url('add')}}";
+        $.ajax({
+            type: "post",
+            url: url,
+            data: $('#editform').serialize(),
+            dataType: "json",
+            async: false,
+            error: function (request) {
+                alert("登录失效");
+            },
+            success: function (data) {
+                if (data.status === 400) {
+                    alert(data.msg);
+                } else if (data.status === 300) {
+                    window.location.href = data.url
+                }
+            }
+        })
+    })
+
+    $("#add_category").click(function (e) {
+        if ($(this).text() === "新增分类") {
+            $("#new-category").show();
+            $("#category").hide();
+            $(this).text("选择已有分类");
+        } else {
+            $("#new-category").hide();
+            $("#category").show();
+            $("#new-category-input").val("");
+            $(this).text("新增分类");
+        }
+    })
+
+    $("#add_tag").click(function (e) {
+        $("#new-tag").show();
+        $("#add_tag-div").hide();
+    })
+</script>
+{% end %}

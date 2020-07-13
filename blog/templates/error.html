@@ -1,0 +1,23 @@
+{% extends "blog_base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/error.css') }}">
+{% end %}
+
+
+{% block content %}
+
+{% module RowDistance("padding-bottom",2) %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-content">
+                <h1>啊偶，出错啦！</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% module RowDistance("padding-bottom",2) %}
+
+{% end %}

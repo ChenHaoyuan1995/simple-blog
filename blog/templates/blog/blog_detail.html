@@ -1,0 +1,43 @@
+{% extends "../blog_base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/blog/blog_detail.css') }}">
+{% end %}
+
+
+{% block content %}
+
+{% module RowDistance("padding-bottom",2) %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-9">
+
+            <div class="blog-detail">
+                    <div class="blog-title">
+                        <h2>{{post.title}}</h2>
+                    </div>
+                    <div class="blog-time">
+                        <h6>{{post.create_time}}</h6>
+                    </div>
+                    <div class="blog-content">
+                        {%raw post.content%}
+                    </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            {% module Categories() %}
+            {% module Tags() %}
+        </div>
+
+
+    </div>
+</div>
+
+{% module RowDistance("padding-bottom",2) %}
+
+{% end %}

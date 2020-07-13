@@ -1,0 +1,12 @@
+<div class="blog-category-module">
+    <div class="blog-category">
+        <h5 class="blog-category-title">
+            Category
+        </h5>
+        <ul class="list-unstyled">
+            {% for category in categories%}
+            <li><h5><a href="{{reverse_url('blog_classify','category',category.id)}}">{{category.name}}</a></h5></li>
+            {% end %}
+        </ul>
+    </div>
+</div>

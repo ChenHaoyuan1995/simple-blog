@@ -1,0 +1,22 @@
+.blog-category-module {
+    background-color: white;
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-bottom: 35px;
+}
+
+.blog-category a {
+    color: black;
+}
+
+.blog-category a:hover {
+    color: #007dff;
+}
+
+.blog-category ul {
+    margin-left: 10px;
+}
+
+.blog-category-title {
+    border-bottom: 1px solid #ddd;
+}

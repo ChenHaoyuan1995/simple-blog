@@ -1,0 +1,29 @@
+.blog-path {
+
+}
+
+.blog-content {
+    background-color: white;
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-bottom: 15px;
+}
+
+
+.blog-list h1, h2, h3, h4, h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+.blog-list h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 18px;
+}
+
+.blog-list-single {
+    padding-bottom: 30px;
+}
+

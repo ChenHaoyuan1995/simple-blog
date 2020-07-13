@@ -1,0 +1,42 @@
+body {
+    background-color: #dedede42;
+}
+
+.login-box {
+    background-color: white;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.login-box h3 {
+    margin-bottom: 50px;
+}
+
+.submit {
+    margin-top: 6%;
+
+}
+
+.wrong {
+    padding-left: 0;
+}
+
+.wrong h5 {
+    font-size: 13px;
+    color: #a94442;
+}
+
+.login {
+    width: 150px;
+}
+
+.login:hover {
+    background-color: #4688ff;
+    color: white;
+}
+
+.back{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}

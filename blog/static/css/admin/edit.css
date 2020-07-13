@@ -1,0 +1,49 @@
+body {
+    background-color: #dedede42;
+}
+
+.blog {
+    background-color: white;
+}
+
+.blog-list h3 {
+    margin-bottom: 30px;
+}
+
+#title {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 24px;
+    height: 45px;
+}
+
+.btn-edit {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.btn-edit:visited{
+    color: #333;
+}
+
+.category-select{
+    margin-top: 20px;
+}
+
+.category-label{
+    padding-top: 9px;
+}
+
+#category,#tag,#new-category{
+    margin-left: -20px;
+}
+
+#add_category:hover{
+    cursor: pointer;
+    user-select: none;
+}
+
+#add_tag:hover{
+    cursor: pointer;
+    user-select: none;
+}

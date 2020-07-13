@@ -1,0 +1,13 @@
+<nav aria-label="Page navigation" style="text-align: center">
+    <ul class="pagination">
+
+        {%for i in all_page%}
+        {% if i != "."%}
+        <li {%if i== page%}class="disabled" {%end%}><a href="?page={{i}}">{{i}}</a></li>
+        {%else%}
+        <li class="disabled"><a>...</a></li>
+        {%end%}
+        {%end%}
+
+    </ul>
+</nav>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tornado-Blog</title>
+    <link rel="stylesheet" href="{{ static_url('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/blog_base.css') }}">
+    {% block css %}{% end %}
+
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 blog-header">
+                <p>Tornado Blog</p>
+            </div>
+            <div class="col-md-4 blog-header form-inline">
+                <input class="form-control blog-search" placeholder="Search.." id="search">
+                <button class="btn btn-default" onclick="search()">Search</button>
+            </div>
+            <div class="col-md-3 col-md-offset-2 blog-header">
+                <div class="blog-navigation">
+                    <ul class="list-inline">
+                        <li><a href="{{ reverse_url('index') }}">首页</a></li>
+                        <li><a href="{{ reverse_url('blog') }}">博客</a></li>
+                        <li><a href="{{ reverse_url('about') }}">关于</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</header>
+<div class="content">
+    {% block content %}{% end %}
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row footer-link">
+            <div class="col-md-8 footer-link-single">
+                <ul class="list-unstyled">
+                    <li><h4>最新发布</h4></li>
+
+{% module RecentPost() %}
+
+
+                </ul>
+            </div>
+
+            <div class="col-md-4 footer-link-single">
+                <ul class="list-unstyled">
+                    <li><h4><a href="{{ reverse_url('admin') }}">管理</a></h4></li>
+                    <li><h4><a>关注</a></h4></li>
+                    <li><h4><a>联系我</a></h4></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function search() {
+        var search = document.getElementById('search').value;
+        window.location.href = "{{ reverse_url('blog_search',0)}}".replace('0', search)
+    }
+</script>
+</body>
+</html>

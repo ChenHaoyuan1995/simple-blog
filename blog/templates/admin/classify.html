@@ -1,0 +1,87 @@
+{% extends "admin_base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/admin/classify.css') }}">
+{% end %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 blog-list">
+            <div class="header col-md-12"><p><a href="{{reverse_url('admin')}}"><span
+                    class="glyphicon glyphicon-arrow-left"
+                    aria-hidden="true"></span></a> 标签分类</p>
+                <div class="user-info">
+                    {{user.nickname}}
+
+                    <button onclick="logout()">
+                        退出登录
+                    </button>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <tr>
+                        <td>分类名</td>
+                        <td>操作</td>
+                    </tr>
+                    {%for category in categories%}
+                    <tr>
+                        <td>{{category.name}}</td>
+                        <td><a class="delete"
+                               onclick="delete_post('category','{{category.id}}',this)">删除</a></td>
+                    </tr>
+                    {%end%}
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <tr>
+                        <td>标签名</td>
+                        <td>操作</td>
+                    </tr>
+                    {%for tag in tags%}
+                    <tr>
+                        <td>{{tag.name}}</td>
+                        <td><a class="delete"
+                               onclick="delete_post('tag','{{tag.id}}',this)">删除</a></td>
+                    </tr>
+                    {%end%}
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% end %}
+
+{% block js %}
+<script>
+
+    function delete_post(type, pk, e) {
+        if (confirm("确认要删除吗？")) {
+            var url = "{{reverse_url('classify_edit',0,1)}}";
+            var reg = /(\w*)0(.*)1(.*)/g;
+            url = url.replace(reg, "$1" + type + "$2" + pk + "$3")
+            $.ajax({
+                type: "delete",
+                url: url,
+                async: false,
+                error: function (request) {
+                    alert("登录失效");
+                },
+                success: function (data) {
+                    if (data.status === 400) {
+                        alert(data.msg);
+                    } else if (data.status === 200) {
+                        var par = e.parentElement.parentElement;
+                        par.parentElement.removeChild(par);
+                    }
+                }
+            })
+        }
+    }
+
+</script>
+
+{%end%}

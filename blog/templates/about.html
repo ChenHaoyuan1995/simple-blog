@@ -1,0 +1,35 @@
+{% extends "blog_base.html" %}
+
+{% block content %}
+
+{% module RowDistance("padding-bottom",2) %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="background-color: white">
+            <h3>这个博客使用tornado搭建的</h3>
+            <h3>目的是用来练手</h3>
+            <h3>有时间就写一写</h3>
+            <h3>前前后后时间加起来大概用时3天左右</h3>
+            {% module RowDistance("padding-bottom",1) %}
+            <h3>目前功能有:</h3>
+            <h3>1.博文查看</h3>
+            <h3>2.分类和搜索</h3>
+            <h3>3.后台文章管理</h3>
+            <h3>4.用户系统</h3>
+            {% module RowDistance("padding-bottom",1) %}
+            <h3>命令介绍</h3>
+            <pre>在项目路径下
+python manage.py runserver 启动服务
+python manage.py createdb  初始化数据库
+python manage.py makedata  生成测试数据（必须先初始化数据库）
+测试数据后台
+账户:admin
+密码:123456
+            </pre>
+        </div>
+    </div>
+</div>
+
+{% module RowDistance("padding-bottom",2) %}
+
+{% end %}

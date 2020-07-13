@@ -1,0 +1,83 @@
+{% extends "admin_base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/admin/admin.css') }}">
+{% end %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 blog-list">
+            <div class="header col-md-12"><p><a href="{{reverse_url('index')}}"><span
+                    class="glyphicon glyphicon-arrow-left"
+                    aria-hidden="true"></span></a> 文章管理</p>
+                <div class="user-info">
+                    {{user.nickname}}
+
+                    <button onclick="logout()">
+                        退出登录
+                    </button>
+                </div>
+
+            </div>
+
+            <h3>
+                <a class="btn btn-default" href="{{reverse_url('add')}}" role="button">写文章</a>
+                <a class="btn btn-default" href="{{reverse_url('classify')}}" role="button">分类标签管理</a>
+            </h3>
+
+            <table class="table">
+                <tr>
+                    <td>标题</td>
+                    <td>时间</td>
+                    <td>分类</td>
+                    <td>标签</td>
+                    <td>操作</td>
+                </tr>
+                {%for post in posts%}
+                <tr>
+                    <td>{{handle_none(post.title)}}</td>
+                    <td>{{handle_none(post.create_time)}}</td>
+                    <td>{{handle_none(post.category)}}</td>
+                    <td>{{handle_none(post.tags)}}</td>
+                    <td><a href="{{reverse_url('edit',post.id)}}">编辑</a> <a id="delete"
+                                                                            onclick="delete_post('{{post.id}}',this)">删除</a>
+                    </td>
+                </tr>
+                {%end%}
+            </table>
+            {% module Pagination(page,pages) %}
+
+        </div>
+    </div>
+
+</div>
+{% end %}
+
+{% block js %}
+<script>
+
+    function delete_post(pk, e) {
+        if (confirm("确认要删除吗？")) {
+            var url = "{{reverse_url('edit',0)}}".replace('0', pk);
+            $.ajax({
+                type: "delete",
+                url: url,
+                async: false,
+                error: function (request) {
+                    alert("登录失效");
+                },
+                success: function (data) {
+                    if (data.status === 400) {
+                        alert(data.msg);
+                    } else if (data.status === 200) {
+                        var par = e.parentElement.parentElement;
+                        par.parentElement.removeChild(par);
+                    }
+                }
+            })
+        }
+    }
+
+</script>
+
+{%end%}

@@ -1,0 +1,83 @@
+{% extends "admin_base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/admin/register.css') }}">
+{% end %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="login-box col-md-6 col-md-offset-3">
+            <h3>注册</h3>
+            <button type="button" class="btn btn-default btn-sm back" onclick="go_to_admin()">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> 返回
+            </button>
+            <form class="form-horizontal" id="loginform">
+                <div class="form-group has-feedback" id="username-group">
+                    <label for="username" class="col-sm-2 control-label ">用户名</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="用户名"
+                               required>
+                        <span id="username-wrong" style="display: none"
+                              class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback" id="nickname-group">
+                    <label for="username" class="col-sm-2 control-label ">昵称</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="nickname" name="nickname" placeholder="昵称"
+                               required>
+                        <span id="nickname-wrong" style="display: none"
+                              class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback" id="password-group">
+                    <label for="password" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="密码"
+                               required>
+                        <span id="password-wrong" style="display: none"
+                              class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group submit">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-default login">注册</button>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+{% end %}
+{% block js %}
+<script>
+    $("#loginform").on("submit", function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: "{{reverse_url('register')}}",
+            data: $('#loginform').serialize(),
+            dataType: "json",
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (data) {
+                if (data.status === 400) {
+                    alert(data.msg);
+                } else if (data.status === 300) {
+                    window.location.href = data.url
+                }
+
+            }
+        })
+    })
+</script>
+
+{%end%}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="{{ static_url('css/bootstrap.min.css') }}">
+    {% block css %}{% end %}
+</head>
+<body>
+{% block body %}{% end %}
+</body>
+<script src="{{ static_url('js/jquery-3.5.1.min.js')}}"></script>
+<script>
+    function back_to_index() {
+        window.location.href = "{{reverse_url('index')}}";
+    }
+
+    function go_to_register() {
+        window.location.href = "{{reverse_url('register')}}";
+    }
+
+    function go_to_admin() {
+        window.location.href = "{{reverse_url('admin')}}";
+    }
+
+    function logout() {
+        $.ajax({
+            type: "post",
+            url: "{{reverse_url('logout')}}",
+            async: false,
+            error: function (request) {
+                alert("服务器错误");
+            },
+            success: function (data) {
+                if (data.status === 400) {
+                    alert(data.msg);
+                } else if (data.status === 300) {
+                    window.location.href = data.url
+                }
+            }
+        })
+    }
+</script>
+{% block js %}{% end %}
+
+</html>

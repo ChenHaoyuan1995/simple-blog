@@ -1,0 +1,27 @@
+.blog-path {
+
+}
+
+.blog-detail {
+    background-color: white;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 15px;
+}
+
+.blog-title {
+    text-align: center;
+}
+
+.blog-time {
+    text-align: center;
+    padding-bottom: 18px;
+}
+
+.blog-title h1, h2, h3, h4, h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+

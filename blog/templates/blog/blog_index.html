@@ -1,0 +1,52 @@
+{% extends "../blog_base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/blog/blog_index.css') }}">
+{% end %}
+
+
+{% block content %}
+
+{% module RowDistance("padding-bottom",2) %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-9">
+            <div class="blog-content">
+                <div class="blog-path">
+                    <h4>主页 / 博客</h4>
+                </div>
+            </div>
+
+            <div class="blog-content">
+                <div class="blog-list">
+
+                    {% if posts%}
+                    {% for post in posts%}
+                    <div class="blog-list-single">
+                        <h2><a href="{{ reverse_url('blog_detail',post.id) }}">{{post.title}}</a></h2>
+                    </div>
+                    {% end %}
+                    {% else %}
+                    <div class="blog-list-single">
+                        <h2>暂无</h2>
+                    </div>
+                    {% end %}
+                </div>
+                {% module Pagination(page,pages) %}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            {% module Categories() %}
+            {% module Tags() %}
+        </div>
+
+
+    </div>
+</div>
+
+{% module RowDistance("padding-bottom",2) %}
+
+{% end %}

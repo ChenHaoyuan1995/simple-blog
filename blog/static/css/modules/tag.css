@@ -1,0 +1,26 @@
+.blog-tag-module {
+    background-color: white;
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-bottom: 35px;
+}
+
+
+.blog-tag-title {
+    border-bottom: 1px solid #ddd;
+}
+
+.blog-tag-box {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 30px;
+}
+
+.blog-tag-box a {
+    padding-right: 20px;
+    color: #23b2dd;
+}
+
+.blog-tag-box a:hover {
+    color: #007dff;
+}

@@ -1,0 +1,99 @@
+{% extends "admin_base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/admin/login.css') }}">
+{% end %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="login-box col-md-6 col-md-offset-3">
+            <h3>登录</h3>
+            <button type="button" class="btn btn-default btn-sm back" onclick="back_to_index()">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> 返回
+            </button>
+            <button type="button" class="btn btn-default btn-sm register" onclick="go_to_register()">
+                 注册 <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </button>
+            <form class="form-horizontal" id="loginform">
+                <div class="form-group has-feedback" id="username-group">
+                    <label for="username" class="col-sm-2 control-label ">用户名</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="用户名"
+                               required>
+                        <span id="username-wrong" style="display: none"
+                              class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    </div>
+
+
+                </div>
+                <div class="form-group has-feedback" id="password-group">
+                    <label for="password" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="密码"
+                               required>
+                        <span id="password-wrong" style="display: none"
+                              class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group submit">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-default login">登录</button>
+                    </div>
+                    <div class="col-sm-12">
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+{% end %}
+{% block js %}
+<script>
+    $("#username").focus(function (e) {
+        $("#username-group").removeClass("has-error");
+        $("#username-wrong").hide();
+    })
+    $("#password").focus(function (e) {
+        $("#password-group").removeClass("has-error");
+        $("#password-wrong").hide();
+    })
+    $("#loginform").on("submit", function (e) {
+        e.preventDefault();
+        $("#username-group").removeClass("has-error")
+        $("#password-group").removeClass("has-error")
+        $("#username-wrong").hide();
+        $("#password-wrong").hide();
+        $.ajax({
+            type: "post",
+            url: "{{reverse_url('login')}}",
+            data: $('#loginform').serialize(),
+            dataType: "json",
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (data) {
+                if (data.status === 400) {
+                    if (data.error === "username") {
+                        $("#username-group").addClass("has-error");
+                        $("#username-wrong").show();
+                    } else if (data.error === "password") {
+                        $("#password-group").addClass("has-error");
+                        $("#password-wrong").show();
+
+                    }
+                    // alert(data.msg);
+                } else if (data.status === 300) {
+                    window.location.href = data.url
+                }
+
+            }
+        })
+    })
+</script>
+
+{%end%}

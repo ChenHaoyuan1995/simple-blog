@@ -1,0 +1,13 @@
+<div class="blog-tag-module">
+    <div class="blog-tag">
+        <h5 class="blog-tag-title">
+            Tags
+        </h5>
+        <div class="blog-tag-box">
+            {% for tag in tags%}
+            <a href="{{reverse_url('blog_classify','tag',tag.id)}}">{{tag.name}}</a>
+            {% end %}
+
+        </div>
+    </div>
+</div>
