@@ -54,6 +54,13 @@ class BaseHandler(RequestHandler):
         return None
 
     def pagination(self, name, model, conditions=None):
+        """
+        分页
+        :param name: 返回的对象里的名字，用于模版渲染
+        :param model: 用于分页的数据库模型
+        :param conditions: 分页的条件，list类型
+        :return: args: 返回渲染模版的键值对
+        """
         current_page = self.get_argument("page", default="1")
         try:
             current_page = int(current_page)
